@@ -1,7 +1,11 @@
 spring:
   application:
     name: eureka-client
-#  cloud:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/xjlonly/config-repo-demo/
 #    consul:
 #      host: localhost
 #      port: 8500
@@ -12,4 +16,12 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:1001/eureka/
+
+encrypt:
+  key: dispose123
+  key-store:
+    location: classpath:/eurekaclient.keystore
+    alias: eurekaclient
+    password: 123456
+    secret: 123456
 

@@ -14,6 +14,7 @@ import java.awt.*;
 public class UploadController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
+
     @PostMapping(value = "/uploadFile",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String handleFileUpload(@RequestPart(value = "file")MultipartFile file){
         logger.info("upload service is requested : {}",file.getName());

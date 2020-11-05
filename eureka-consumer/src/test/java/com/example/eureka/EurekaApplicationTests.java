@@ -34,7 +34,7 @@ class EurekaApplicationTests {
     @Test
     @SneakyThrows
     public void  testHandleFileUpload(){
-        File file = new File("upload.txt");
+        File file = new File("D:/upload.txt");
         DiskFileItem fileItem = (DiskFileItem) new DiskFileItemFactory().createItem("file", MediaType.TEXT_PLAIN_VALUE,true,file.getName());
         try(InputStream inputStream = new FileInputStream(file); OutputStream outputStream = fileItem.getOutputStream()){
             IOUtils.copy(inputStream,outputStream);

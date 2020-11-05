@@ -82,6 +82,10 @@
             <artifactId>lombok</artifactId>
             <version>1.18.11.97</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
 
     </dependencies>
     <dependencyManagement>
