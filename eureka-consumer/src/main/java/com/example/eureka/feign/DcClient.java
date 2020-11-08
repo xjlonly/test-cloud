@@ -1,10 +1,13 @@
 package com.example.eureka.feign;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.context.annotation.Primary;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient("eureka-client")
+
+@Primary
+@FeignClient(value = "api-gateway",fallback = FallbackClient.class)
 public interface DcClient {
-    @GetMapping("/dc")
+    @GetMapping("/eureka-testclient/dc")
     String consumer();
 }

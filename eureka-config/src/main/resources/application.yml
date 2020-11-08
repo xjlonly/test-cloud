@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: eureka-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/xjlonly/config-repo-demo/
+#    consul:
+#      host: localhost
+#      port: 8500
+
+server:
+  port: 2001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://139.199.117.109:1001/eureka/
+      prefer-ip-address: true
+  instance:
+    prefer-ip-address: true
+    ip-address: 139.199.117.109
+encrypt:
+  key: dispose123
+  key-store:
+    location: classpath:/eurekaclient.keystore
+    alias: eurekaclient
+    password: 123456
+    secret: 123456
+
+
+

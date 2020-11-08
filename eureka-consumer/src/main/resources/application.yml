@@ -9,9 +9,16 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:1001/eureka/
+      defaultZone: http://139.199.117.109:1001/eureka/
+
+feign:
+  hystrix:
+    enabled: true
 
 management:
   security:
     enabled: false
+
+swagger:
+  base-package:  com.example.eureka
 

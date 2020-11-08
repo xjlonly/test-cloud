@@ -1,6 +1,7 @@
 package com.example.eureka.controller;
 
 import com.example.eureka.feign.DcClient;
+import com.example.eureka.service.ConsumerService;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,20 +25,28 @@ public class ConController {
     @Autowired
     DcClient dcClient;
 
+    @Autowired
+    ConsumerService consumerService;
+
     @GetMapping("/china/consumer")
     public String getdc(){
         //手动进行获取负载均衡服务
-        ServiceInstance serviceInstance = loadBalancerClient.choose("eureka-client");
-        String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/dc";
+        ServiceInstance serviceInstance = loadBalancerClient.choose("api-gateway");
+        String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/eureka-testclient/dc";
         logger.info("Consumer url : {}",url);
-        return  restTemplate.getForObject(url, String.class);
+        //使用自动负载均衡时 不能使用ip地址访问 只能使用服务名访问 此处不使用依赖注入的bean
+        return (new RestTemplate()).getForObject(url, String.class);
     }
 
+    @GetMapping("/hystrix/test")
+    public String hystrixTest(){
+        return consumerService.consumerHystrix();
+    }
 
     @GetMapping("/ribbon/consumer")
     public String getDcRibbon(){
         //通过ribbon进行负载均衡消费
-        return  restTemplate.getForObject("http://eureka-client/dc", String.class);
+        return  restTemplate.getForObject("http://api-gateway/eureka-testclient/dc", String.class);
     }
 
 

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: eureka-testclient
+
+server:
+  port: 3001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://139.199.117.109:1001/eureka/
+      prefer-ip-address: true
+  instance:
+    prefer-ip-address: true
+    ip-address: 139.199.117.109
+    instance-id: ${spring.cloud.client.ipAddress}:${spring.application.name}:${server.port}
+    hostname: ${spring.cloud.client.ipAddress}
+swagger:
+  base-package: com.example.eureka.eclient
+
+
+
