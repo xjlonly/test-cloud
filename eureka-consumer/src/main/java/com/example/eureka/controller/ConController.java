@@ -2,18 +2,23 @@ package com.example.eureka.controller;
 
 import com.example.eureka.feign.DcClient;
 import com.example.eureka.service.ConsumerService;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.example.eureka.service.SinkSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class ConController {
+
+    @Autowired
+    SinkSender sinkSender;
 
     @Autowired
     LoadBalancerClient loadBalancerClient;
@@ -27,6 +32,11 @@ public class ConController {
 
     @Autowired
     ConsumerService consumerService;
+    @GetMapping("/sender")
+    public boolean sender(){
+        //sinkSender.sendSinkSenderTester();
+        return true;
+    }
 
     @GetMapping("/china/consumer")
     public String getdc(){
@@ -47,6 +57,13 @@ public class ConController {
     public String getDcRibbon(){
         //通过ribbon进行负载均衡消费
         return  restTemplate.getForObject("http://api-gateway/eureka-testclient/dc", String.class);
+    }
+
+    @GetMapping("/tracenode")
+    public String traceTest(){
+        //通过ribbon进行负载均衡消费
+        logger.info("-------------------trace-1-----------------------------------------");
+        return  restTemplate.getForObject("http://eureka-testclient1/dc", String.class);
     }
 
 

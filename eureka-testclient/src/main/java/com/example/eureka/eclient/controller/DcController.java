@@ -14,6 +14,7 @@ public class DcController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @GetMapping("/dc")
     public String dc(){
+        logger.info("-------------------trace-2-----------------------------------------");
         String services = "Services: " + discoveryClient.getServices();
         logger.info(services);
         return services;
