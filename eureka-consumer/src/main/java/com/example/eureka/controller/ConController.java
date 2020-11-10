@@ -62,7 +62,7 @@ public class ConController {
     @GetMapping("/tracenode")
     public String traceTest(){
         //通过ribbon进行负载均衡消费
-        logger.info("-------------------trace-1-----------------------------------------");
+        logger.info("---------------------------trace-1-----------------------------------------");
         return  restTemplate.getForObject("http://eureka-testclient1/dc", String.class);
     }
 
